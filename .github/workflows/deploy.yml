@@ -9,8 +9,11 @@ on:
         - test
         - prod
 
-name: Azure Bicep-Advanced
-      
+permissions:
+  id-token: write
+  contents: read
+  
+name: Azure Bicep-Advanced  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -21,11 +24,10 @@ jobs:
       # Log into Azure
     - uses: azure/login@v1
       with:
-        auth-type: SERVICE_PRINCIPAL	     
         client-id: ${{ secrets.CLIENT_ID }}
         tenant-id: ${{ secrets.TENANT_ID }}
         subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
-        # enable-AzPSSession: true
+        enable-AzPSSession: true
 
       # Deploy ARM template
     - name: Run ARM deploy
