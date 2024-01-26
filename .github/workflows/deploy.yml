@@ -10,6 +10,11 @@ on:
         - prod
 
 name: Azure Bicep-Advanced
+
+permissions:
+      id-token: write
+      contents: read
+      
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -19,8 +24,7 @@ jobs:
 
       # Log into Azure
     - uses: azure/login@v1
-      with:
-        auth-type: IDENTITY      
+      with:    
         client-id: ${{ secrets.CLIENT_ID }}
         tenant-id: ${{ secrets.TENANT_ID }}
         subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
