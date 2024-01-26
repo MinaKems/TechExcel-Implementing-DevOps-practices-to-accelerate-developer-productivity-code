@@ -10,10 +10,6 @@ on:
         - prod
 
 name: Azure Bicep-Advanced
-
-permissions:
-      id-token: write
-      contents: read
       
 jobs:
   build-and-deploy:
@@ -24,11 +20,12 @@ jobs:
 
       # Log into Azure
     - uses: azure/login@v1
-      with:    
+      with:
+        auth-type: SERVICE_PRINCIPAL	     
         client-id: ${{ secrets.CLIENT_ID }}
         tenant-id: ${{ secrets.TENANT_ID }}
         subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
-        enable-AzPSSession: true
+        # enable-AzPSSession: true
 
       # Deploy ARM template
     - name: Run ARM deploy
